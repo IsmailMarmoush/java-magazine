@@ -4,5 +4,7 @@ import io.memoria.jutils.eventsourcing.cmd.Command;
 
 public interface SuggestionCmd extends Command {
 
-  record CreateSuggestion(String articleId, String newTitle, String newContent) implements SuggestionCmd{}
+  record CreateContentSuggestion(String articleId, String newContent) implements SuggestionCmd {}
+
+  record CreateTitleSuggestion(String articleId, String newTitle) implements SuggestionCmd {}
 }

@@ -1,13 +1,12 @@
 package io.memoria.magazine.adapter.article;
 
 import io.memoria.magazine.core.domain.Article;
-import io.memoria.magazine.core.domain.ArticleStatus;
 import io.memoria.magazine.core.services.ArticleService;
 import io.memoria.magazine.core.services.dto.ArticleCmd.CreateArticleDraft;
 import io.memoria.magazine.core.services.dto.ArticleCmd.EditArticle;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleCreated;
-import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticlePublished;
+import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -20,7 +19,7 @@ public record DefaultArticleService(ArticleEventRepo articleEventRepo, ArticleEv
 
   @Override
   public Mono<ArticleCreated> create(CreateArticleDraft createArticle) {
-    // Validations etc here
+    // TODO Validations etc here
     return Mono.just(new ArticleCreated(UUID.randomUUID().toString(),
                                         createArticle.title(),
                                         createArticle.content(),
