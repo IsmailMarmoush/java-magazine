@@ -10,15 +10,12 @@ import io.memoria.magazine.core.services.dto.EditionEvent.EditionPublished;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record DefaultEditionService(EditionEventRepo repo, EditionEventHandler edititionEventHandler)
         implements EditionService {
   @Override
   public Mono<EditionCreated> create(String id, CreateEditionDraft createEditionCmd) {
-    return Mono.just(new EditionCreated(id,
-                                        createEditionCmd.editionName(),
-                                        createEditionCmd.topics()));
+    return Mono.just(new EditionCreated(id, createEditionCmd.editionName(), createEditionCmd.topics()));
   }
 
   @Override

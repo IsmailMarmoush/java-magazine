@@ -11,7 +11,6 @@ import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.HashMap;
@@ -42,18 +41,6 @@ public class ArticleServiceTest {
   }
 
   @Test
-  @DisplayName("EventHandler should produce expected article updates")
-  public void eventHandlerTest() {
-    map.put(Tests.ARTICLE_ID, List.of(ARTICLE_CREATED, TITLE_EDITED, ARTICLE_PUBLISHED));
-    var eventFlux = this.articleEventRepo.get(Tests.ARTICLE_ID);
-    var articleMono = eventFlux.reduce(Article.empty(), new ArticleEventHandler());
-    StepVerifier.create(articleMono)
-                .expectNext(new Article(NEW_TITLE, ARTICLE_CONTENT, PUBLISHED))
-                .expectComplete()
-                .verify();
-  }
-
-  @Test
   @DisplayName("ArticleService commands should produce same article data eventually")
   public void commandsTest() {
     var createArticleMono = articleService.create(ARTICLE_ID, Tests.CREATE_ARTICLE_DRAFT).doOnNext(saveEvent());
@@ -63,6 +50,18 @@ public class ArticleServiceTest {
     var result = createArticleMono.then(editArticle).then(publishArticle).then(events);
     StepVerifier.create(result)
                 .expectNext(new Article(Tests.NEW_TITLE, ARTICLE_CONTENT, PUBLISHED))
+                .expectComplete()
+                .verify();
+  }
+
+  @Test
+  @DisplayName("EventHandler should produce expected article updates")
+  public void eventHandlerTest() {
+    map.put(Tests.ARTICLE_ID, List.of(ARTICLE_CREATED, TITLE_EDITED, ARTICLE_PUBLISHED));
+    var eventFlux = this.articleEventRepo.get(Tests.ARTICLE_ID);
+    var articleMono = eventFlux.reduce(Article.empty(), new ArticleEventHandler());
+    StepVerifier.create(articleMono)
+                .expectNext(new Article(NEW_TITLE, ARTICLE_CONTENT, PUBLISHED))
                 .expectComplete()
                 .verify();
   }

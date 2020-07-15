@@ -5,8 +5,8 @@ import io.memoria.magazine.core.domain.Article;
 import io.memoria.magazine.core.domain.ArticleStatus;
 import io.memoria.magazine.core.services.dto.ArticleEvent;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleCreated;
-import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticlePublished;
+import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 
 public record ArticleEventHandler() implements EventHandler<Article, ArticleEvent> {
   @Override
