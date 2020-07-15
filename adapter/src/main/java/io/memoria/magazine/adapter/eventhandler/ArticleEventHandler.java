@@ -10,14 +10,30 @@ import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 
 public record ArticleEventHandler() implements EventHandler<Article, ArticleEvent> {
   @Override
-  public Article apply(Article original, ArticleEvent articleEvent) {
+  public Article apply(Article article, ArticleEvent articleEvent) {
     if (articleEvent instanceof ArticleCreated ac) {
       return new Article(ac.title(), ac.content(), ArticleStatus.DRAFT);
+    } else if (article.isEmpty()) {
+      throw new IllegalStateException("Previous Article is empty");
     } else if (articleEvent instanceof ArticleTitleEdited ac) {
-      return original.withTitle(ac.newTitle());
+      return changeTitle(article, ac.newTitle());
     } else if (articleEvent instanceof ArticlePublished) {
-      return original.toPublished();
+      return publish(article);
     }
     throw new UnsupportedOperationException("Event is not supported");
+  }
+
+  private Article publish(Article article) {
+    return switch (article.status()) {
+      case DRAFT -> article.toPublished();
+      case PUBLISHED -> throw new IllegalStateException("Article already published");
+    };
+  }
+
+  private Article changeTitle(Article article, String title) {
+    return switch (article.status()) {
+      case DRAFT -> article.withTitle(title);
+      case PUBLISHED -> throw new IllegalStateException("Article already published, can't change the title");
+    };
   }
 }

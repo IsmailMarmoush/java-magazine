@@ -1,6 +1,6 @@
 package io.memoria.magazine.core.domain;
 
-public enum SuggestionStatus {
+public enum ReviewStatus {
   CREATED,
   FULFILLED,
   RESOLVED

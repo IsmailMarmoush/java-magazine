@@ -9,7 +9,7 @@ import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 
 import java.time.LocalDateTime;
 
-public class Tests {
+public class ArticleTestData {
   //***************************************************************************
   // Events
   //***************************************************************************
@@ -26,7 +26,9 @@ public class Tests {
   // Edited title
   static final LocalDateTime EDIT_DATE = LocalDateTime.of(2022, 2, 2, 2, 0);
   static final String NEW_TITLE = "Reactive Programming 101";
-  static final ArticleTitleEdited TITLE_EDITED = new ArticleTitleEdited(Tests.ARTICLE_ID, NEW_TITLE, EDIT_DATE);
+  static final ArticleTitleEdited TITLE_EDITED = new ArticleTitleEdited(ArticleTestData.ARTICLE_ID,
+                                                                        NEW_TITLE,
+                                                                        EDIT_DATE);
 
   // Published
   static final LocalDateTime PUBLISH_DATE = LocalDateTime.of(2023, 3, 3, 3, 0);
@@ -38,5 +40,5 @@ public class Tests {
   static final CreateArticleDraft CREATE_ARTICLE_DRAFT = new CreateArticleDraft(ARTICLE_TITLE, ARTICLE_CONTENT);
   static final EditArticleTitle EDIT_ARTICLE_TITLE = new EditArticleTitle(ARTICLE_ID, NEW_TITLE);
 
-  private Tests() {}
+  private ArticleTestData() {}
 }

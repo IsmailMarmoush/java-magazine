@@ -5,6 +5,10 @@ public record Article(String title, String content, ArticleStatus status) {
     return new Article("", "", ArticleStatus.DRAFT);
   }
 
+  public boolean isEmpty() {
+    return this.equals(empty());
+  }
+
   public Article toPublished() {
     return new Article(this.title, this.content, ArticleStatus.PUBLISHED);
   }
