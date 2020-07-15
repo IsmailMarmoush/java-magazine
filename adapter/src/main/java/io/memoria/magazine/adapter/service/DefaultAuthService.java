@@ -1,13 +1,14 @@
-package io.memoria.magazine.adapter.auth;
+package io.memoria.magazine.adapter.service;
 
+import io.memoria.magazine.adapter.repo.AuthRepo;
 import io.memoria.magazine.core.services.AuthService;
 import io.memoria.magazine.core.services.auth.Operation;
 import reactor.core.publisher.Mono;
 
-public record DefaultAuthService() implements AuthService {
+public record DefaultAuthService(AuthRepo repo) implements AuthService {
 
   @Override
   public Mono<Boolean> isAuthorized(String principalId, Operation operation) {
-    return null;
+    return repo.isAuthorized(principalId, operation);
   }
 }

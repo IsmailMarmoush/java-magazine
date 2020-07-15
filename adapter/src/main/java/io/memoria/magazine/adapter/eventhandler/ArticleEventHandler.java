@@ -1,4 +1,4 @@
-package io.memoria.magazine.adapter.article;
+package io.memoria.magazine.adapter.eventhandler;
 
 import io.memoria.jutils.eventsourcing.event.EventHandler;
 import io.memoria.magazine.core.domain.Article;
@@ -8,7 +8,7 @@ import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleCreated;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
 import io.memoria.magazine.core.services.dto.ArticleEvent.ArticlePublished;
 
-public class ArticleEventHandler implements EventHandler<Article, ArticleEvent> {
+public record ArticleEventHandler() implements EventHandler<Article, ArticleEvent> {
   @Override
   public Article apply(Article original, ArticleEvent articleEvent) {
     if (articleEvent instanceof ArticleCreated ac) {
@@ -16,8 +16,8 @@ public class ArticleEventHandler implements EventHandler<Article, ArticleEvent> 
     } else if (articleEvent instanceof ArticleTitleEdited ac) {
       return original.withTitle(ac.newTitle());
     } else if (articleEvent instanceof ArticlePublished) {
-      return original.withPublished();
+      return original.toPublished();
     }
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Event is not supported");
   }
 }

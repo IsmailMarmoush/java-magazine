@@ -5,15 +5,15 @@ public record Article(String title, String content, ArticleStatus status) {
     return new Article("", "", ArticleStatus.DRAFT);
   }
 
-  public Article withTitle(String title) {
-    return new Article(title, this.content, this.status);
+  public Article toPublished() {
+    return new Article(this.title, this.content, ArticleStatus.PUBLISHED);
   }
 
   public Article withContent(String content) {
     return new Article(this.title, content, this.status);
   }
 
-  public Article withPublished() {
-    return new Article(this.title, this.content, ArticleStatus.PUBLISHED);
+  public Article withTitle(String title) {
+    return new Article(title, this.content, this.status);
   }
 }

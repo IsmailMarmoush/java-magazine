@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface EditionService {
 
-  Mono<EditionCreated> create(CreateEditionDraft createEditionCmd);
+  Mono<EditionCreated> create(String id, CreateEditionDraft createEditionCmd);
 
   Mono<EditionPublished> publish(String id);
 }
