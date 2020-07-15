@@ -31,3 +31,4 @@
 * Assuming the following business rules:
     * A review can't be resolved till it's fulfilled first
     * An article title can't be changed if it was published
+* Initial implementation of authorization is written, since API isn't required yet, it's not used.
