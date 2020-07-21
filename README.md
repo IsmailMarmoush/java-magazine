@@ -22,6 +22,8 @@
 
 
 ## Notes:
+* Assumptions:
+    * 
 * Many crud operations that are "good to have" are not implemented for the following reasons:
     * They aren't specifically mentioned in the requirements (e.g deletion of edition draft)
     * The logic doesn't fail without them, and they might not be ever needed (YAGNI)

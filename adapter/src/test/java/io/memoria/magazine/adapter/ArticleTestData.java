@@ -1,11 +1,11 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.core.services.dto.ArticleCmd.CreateArticleDraft;
-import io.memoria.magazine.core.services.dto.ArticleCmd.EditArticleTitle;
-import io.memoria.magazine.core.services.dto.ArticleEvent;
-import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleCreated;
-import io.memoria.magazine.core.services.dto.ArticleEvent.ArticlePublished;
-import io.memoria.magazine.core.services.dto.ArticleEvent.ArticleTitleEdited;
+import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
+import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
+import io.memoria.magazine.domain.model.article.ArticleEvent;
+import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleCreated;
+import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
+import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +37,7 @@ public class ArticleTestData {
   //***************************************************************************
   // Commands
   //***************************************************************************
-  static final CreateArticleDraft CREATE_ARTICLE_DRAFT = new CreateArticleDraft(ARTICLE_TITLE, ARTICLE_CONTENT);
+  static final SubmitDraft CREATE_ARTICLE_DRAFT = new SubmitDraft(ARTICLE_TITLE, ARTICLE_CONTENT);
   static final EditArticleTitle EDIT_ARTICLE_TITLE = new EditArticleTitle(ARTICLE_ID, NEW_TITLE);
 
   private ArticleTestData() {}

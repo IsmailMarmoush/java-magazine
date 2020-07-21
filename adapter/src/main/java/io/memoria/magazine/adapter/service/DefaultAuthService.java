@@ -1,8 +1,8 @@
 package io.memoria.magazine.adapter.service;
 
 import io.memoria.magazine.adapter.repo.AuthRepo;
-import io.memoria.magazine.core.services.AuthService;
-import io.memoria.magazine.core.services.auth.Operation;
+import io.memoria.magazine.domain.services.AuthService;
+import io.memoria.magazine.domain.services.auth.Operation;
 import reactor.core.publisher.Mono;
 
 public record DefaultAuthService(AuthRepo repo) implements AuthService {

@@ -1,14 +1,12 @@
-package io.memoria.magazine.adapter.eventhandler;
+package io.memoria.magazine.domain.model.review;
 
-import io.memoria.jutils.eventsourcing.event.EventHandler;
-import io.memoria.magazine.core.domain.Review;
-import io.memoria.magazine.core.services.dto.ReviewEvent;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ContentReviewCreated;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ReviewFulfilled;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ReviewResolved;
+import io.memoria.jutils.core.eventsourcing.event.EventHandler;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ContentReviewCreated;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewFulfilled;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewResolved;
 
-import static io.memoria.magazine.core.domain.ReviewStatus.CREATED;
-import static io.memoria.magazine.core.domain.ReviewType.CONTENT_CHANGE;
+import static io.memoria.magazine.domain.model.review.ReviewStatus.CREATED;
+import static io.memoria.magazine.domain.model.review.ReviewType.CONTENT_CHANGE;
 
 public record ReviewEventHandler() implements EventHandler<Review, ReviewEvent> {
   @Override

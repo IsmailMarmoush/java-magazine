@@ -1,4 +1,4 @@
-package io.memoria.magazine.core.domain;
+package io.memoria.magazine.domain.model.article;
 
 public enum ArticleStatus {
   DRAFT,

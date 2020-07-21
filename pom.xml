@@ -21,11 +21,11 @@
     </organization>
 
     <modules>
-        <module>core</module>
+        <module>domain</module>
         <module>adapter</module>
     </modules>
     <properties>
-        <jutils.version>0.93.1</jutils.version>
+        <jutils.version>0.98.0</jutils.version>
     </properties>
     <distributionManagement>
         <site>

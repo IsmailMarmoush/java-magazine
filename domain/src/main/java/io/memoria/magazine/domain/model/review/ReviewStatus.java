@@ -1,4 +1,4 @@
-package io.memoria.magazine.core.domain;
+package io.memoria.magazine.domain.model.review;
 
 public enum ReviewStatus {
   CREATED,

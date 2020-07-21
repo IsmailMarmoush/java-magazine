@@ -1,4 +1,4 @@
-package io.memoria.magazine.core.services.auth;
+package io.memoria.magazine.domain.services.auth;
 
 public enum Operation {
   ARTICLE_SUBMISSION,

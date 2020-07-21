@@ -1,14 +1,13 @@
-package io.memoria.magazine.core.domain;
+package io.memoria.magazine.domain.model.review;
 
-import static io.memoria.magazine.core.domain.ReviewStatus.CREATED;
-import static io.memoria.magazine.core.domain.ReviewType.CONTENT_CHANGE;
+import static io.memoria.magazine.domain.model.review.ReviewStatus.CREATED;
 
 public record Review(String articleId,
                      String newContent,
                      ReviewType reviewType,
                      ReviewStatus reviewStatus) {
   public static Review empty() {
-    return new Review("", "", CONTENT_CHANGE, CREATED);
+    return new Review("", "", ReviewType.CONTENT_CHANGE, CREATED);
   }
 
   public boolean isEmpty() {

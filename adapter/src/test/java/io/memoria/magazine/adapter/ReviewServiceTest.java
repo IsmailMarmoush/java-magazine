@@ -1,14 +1,14 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.adapter.eventhandler.ReviewEventHandler;
+import io.memoria.magazine.domain.model.review.ReviewEventHandler;
 import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.adapter.repo.memory.InMemoryEventRepo;
 import io.memoria.magazine.adapter.service.DefaultReviewService;
-import io.memoria.magazine.core.domain.Review;
-import io.memoria.magazine.core.domain.ReviewStatus;
-import io.memoria.magazine.core.domain.ReviewType;
-import io.memoria.magazine.core.services.ReviewService;
-import io.memoria.magazine.core.services.dto.ReviewEvent;
+import io.memoria.magazine.domain.model.review.Review;
+import io.memoria.magazine.domain.model.review.ReviewStatus;
+import io.memoria.magazine.domain.model.review.ReviewType;
+import io.memoria.magazine.domain.services.ReviewService;
+import io.memoria.magazine.domain.model.review.ReviewEvent;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

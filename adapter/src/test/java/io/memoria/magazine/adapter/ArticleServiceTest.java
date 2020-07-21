@@ -1,12 +1,12 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.adapter.eventhandler.ArticleEventHandler;
+import io.memoria.magazine.domain.model.article.ArticleEventHandler;
 import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.adapter.repo.memory.InMemoryEventRepo;
 import io.memoria.magazine.adapter.service.DefaultArticleService;
-import io.memoria.magazine.core.domain.Article;
-import io.memoria.magazine.core.services.ArticleService;
-import io.memoria.magazine.core.services.dto.ArticleEvent;
+import io.memoria.magazine.domain.model.article.Article;
+import io.memoria.magazine.domain.services.ArticleService;
+import io.memoria.magazine.domain.model.article.ArticleEvent;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +22,7 @@ import static io.memoria.magazine.adapter.ArticleTestData.ARTICLE_ID;
 import static io.memoria.magazine.adapter.ArticleTestData.ARTICLE_PUBLISHED;
 import static io.memoria.magazine.adapter.ArticleTestData.NEW_TITLE;
 import static io.memoria.magazine.adapter.ArticleTestData.TITLE_EDITED;
-import static io.memoria.magazine.core.domain.ArticleStatus.PUBLISHED;
+import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
 
 public class ArticleServiceTest {
   private final EventRepo<ArticleEvent> repo;

@@ -1,9 +1,9 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.core.services.dto.ReviewCmd.CreateContentReview;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ContentReviewCreated;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ReviewFulfilled;
-import io.memoria.magazine.core.services.dto.ReviewEvent.ReviewResolved;
+import io.memoria.magazine.domain.model.review.ReviewCmd.CreateContentReview;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ContentReviewCreated;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewFulfilled;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewResolved;
 
 import static io.memoria.magazine.adapter.ArticleTestData.ARTICLE_ID;
 

@@ -1,6 +1,6 @@
-package io.memoria.magazine.core.services.dto;
+package io.memoria.magazine.domain.model.review;
 
-import io.memoria.jutils.eventsourcing.cmd.Command;
+import io.memoria.jutils.core.eventsourcing.cmd.Command;
 
 public interface ReviewCmd extends Command {
 
