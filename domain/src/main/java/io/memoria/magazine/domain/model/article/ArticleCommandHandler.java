@@ -20,7 +20,7 @@ import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_ARTICLE;
 import static io.memoria.magazine.domain.model.MagazineError.UnauthorizedError.UNAUTHORIZED;
 import static io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand.UNSUPPORTED_COMMAND;
-import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
+import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
 import static io.memoria.magazine.domain.services.auth.Role.JOURNALIST;
 
 public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler<Article, ArticleCmd, ArticleEvent> {
@@ -35,7 +35,8 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
                               .flatMap(tr -> mustBeOwner(article, cmd))
                               .flatMap(tr -> editTitle(cmd));
     } else if (articleCommand instanceof PublishArticle cmd) {
-      return notEmpty(article).flatMap(tr -> mustBe(JOURNALIST, cmd))
+      return notEmpty(article).flatMap(tr -> notPublished(article))
+                              .flatMap(tr -> mustBe(JOURNALIST, cmd))
                               .flatMap(tr -> mustBeOwner(article, cmd))
                               .flatMap(tr -> publish(cmd, article));
     } else {
@@ -54,21 +55,15 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
   }
 
   private Try<List<ArticleEvent>> editTitle(EditArticleTitle cmd) {
-    var event = new ArticleTitleEdited(cmd.id(), cmd.newTitle(), LocalDateTime.now());
-    return Try.success(List.of(event));
+    return Try.success(List.of(new ArticleTitleEdited(cmd.id(), cmd.newTitle(), LocalDateTime.now())));
   }
 
   private Try<List<ArticleEvent>> publish(PublishArticle cmd, Article article) {
-    if (article.status().equals(DRAFT)) {
-      var event = new ArticlePublished(cmd.id(), LocalDateTime.now());
-      return Try.success(List.of(event));
-    } else {
-      return Try.failure(ARTICLE_ALREADY_PUBLISHED);
-    }
+    return Try.success(List.of(new ArticlePublished(cmd.id(), LocalDateTime.now())));
   }
 
+  // TODO test case of unknown commands
   private Try<List<ArticleEvent>> unknownCommand(ArticleCmd articleCommand) {
-    // TODO test case of unknown commands
     log.error("Unsupported command" + articleCommand.getClass());
     return Try.failure(UNSUPPORTED_COMMAND);
   }
@@ -87,5 +82,9 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
 
   private static Try<Void> notEmpty(Article article) {
     return (!article.isEmpty()) ? Try.success(null) : Try.failure(EMPTY_ARTICLE);
+  }
+
+  private static Try<Void> notPublished(Article article) {
+    return (article.status().equals(PUBLISHED)) ? Try.failure(ARTICLE_ALREADY_PUBLISHED) : Try.success(null);
   }
 }
