@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.ARTICLE_ALREADY_PUBLISHED;
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_ARTICLE;
+import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_TOPICS;
 import static io.memoria.magazine.domain.model.MagazineError.UnauthorizedError.UNAUTHORIZED;
 import static io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand.UNSUPPORTED_COMMAND;
 import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
@@ -29,7 +30,7 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
   @Override
   public Try<List<ArticleEvent>> apply(Article article, ArticleCmd articleCommand) {
     if (articleCommand instanceof SubmitDraft cmd) {
-      return mustBe(JOURNALIST, cmd).flatMap(tr -> createArticle(cmd));
+      return mustBe(JOURNALIST, cmd).flatMap(tr -> mustHaveTopics(cmd)).flatMap(tr -> createArticle(cmd));
     } else if (articleCommand instanceof EditArticleTitle cmd) {
       return notEmpty(article).flatMap(tr -> mustBe(JOURNALIST, cmd))
                               .flatMap(tr -> mustBeOwner(article, cmd))
@@ -78,6 +79,10 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
 
   private static Try<Void> mustBeOwner(Article article, ArticleCmd cmd) {
     return (article.creatorId().equals(cmd.principal().id())) ? Try.success(null) : Try.failure(UNAUTHORIZED);
+  }
+
+  private static Try<Void> mustHaveTopics(SubmitDraft cmd) {
+    return (cmd.topics().size() > 0) ? Try.success(null) : Try.failure(EMPTY_TOPICS);
   }
 
   private static Try<Void> notEmpty(Article article) {

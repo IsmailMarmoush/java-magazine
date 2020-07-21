@@ -3,6 +3,7 @@ package io.memoria.magazine.domain.model;
 public class MagazineError extends Exception {
   public static class InvalidArticleState extends MagazineError {
     public static final InvalidArticleState EMPTY_ARTICLE = new InvalidArticleState("Article is empty");
+    public static final InvalidArticleState EMPTY_TOPICS = new InvalidArticleState("Article doesn't have topics");
     public static final InvalidArticleState ARTICLE_ALREADY_PUBLISHED = new InvalidArticleState(
             "Article was already published");
 
