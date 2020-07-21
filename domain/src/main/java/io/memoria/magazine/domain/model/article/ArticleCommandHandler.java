@@ -5,7 +5,7 @@ import io.memoria.jutils.core.generator.IdGenerator;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.PublishArticle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
-import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleCreated;
+import io.memoria.magazine.domain.model.article.ArticleEvent.DraftArticleSubmitted;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
 import io.memoria.magazine.domain.services.auth.Role;
@@ -47,12 +47,12 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
   }
 
   private Try<List<ArticleEvent>> createArticle(SubmitDraft cmd) {
-    var event = new ArticleCreated(cmd.principal().id(),
-                                   idGen.get(),
-                                   cmd.title(),
-                                   cmd.content(),
-                                   cmd.topics(),
-                                   LocalDateTime.now());
+    var event = new DraftArticleSubmitted(cmd.principal().id(),
+                                          idGen.get(),
+                                          cmd.title(),
+                                          cmd.content(),
+                                          cmd.topics(),
+                                          LocalDateTime.now());
     return Try.success(List.of(event));
   }
 
