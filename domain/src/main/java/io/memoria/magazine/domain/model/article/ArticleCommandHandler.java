@@ -2,9 +2,6 @@ package io.memoria.magazine.domain.model.article;
 
 import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
 import io.memoria.jutils.core.generator.IdGenerator;
-import io.memoria.magazine.domain.model.MagazineError;
-import io.memoria.magazine.domain.model.MagazineError.InvalidArticleState;
-import io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.PublishArticle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
@@ -20,10 +17,10 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.ARTICLE_ALREADY_PUBLISHED;
+import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_ARTICLE;
 import static io.memoria.magazine.domain.model.MagazineError.UnauthorizedError.UNAUTHORIZED;
 import static io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand.UNSUPPORTED_COMMAND;
 import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
-import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_ARTICLE;
 import static io.memoria.magazine.domain.services.auth.Role.JOURNALIST;
 
 public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler<Article, ArticleCmd, ArticleEvent> {

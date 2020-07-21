@@ -4,5 +4,6 @@ import io.vavr.collection.Set;
 
 public interface Principal {
   String id();
+
   Set<Role> roles();
 }

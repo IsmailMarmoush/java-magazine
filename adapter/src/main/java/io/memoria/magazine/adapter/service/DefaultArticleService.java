@@ -3,13 +3,13 @@ package io.memoria.magazine.adapter.service;
 import io.memoria.jutils.core.eventsourcing.event.EventHandler;
 import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.domain.model.article.Article;
-import io.memoria.magazine.domain.services.ArticleService;
-import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
+import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleEvent;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleCreated;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
+import io.memoria.magazine.domain.services.ArticleService;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;

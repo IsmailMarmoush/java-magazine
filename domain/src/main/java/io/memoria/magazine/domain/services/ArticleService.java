@@ -1,7 +1,7 @@
 package io.memoria.magazine.domain.services;
 
-import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
+import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleCreated;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
@@ -14,4 +14,4 @@ public interface ArticleService {
   Mono<ArticleTitleEdited> edit(EditArticleTitle editArticleTitle);
 
   Mono<ArticlePublished> publish(String id);
-} 
+}

@@ -1,7 +1,7 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
+import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.article.ArticleEvent;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleCreated;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;

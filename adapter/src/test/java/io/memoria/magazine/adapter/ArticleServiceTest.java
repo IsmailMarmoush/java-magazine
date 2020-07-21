@@ -1,12 +1,12 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.domain.model.article.ArticleEventHandler;
 import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.adapter.repo.memory.InMemoryEventRepo;
 import io.memoria.magazine.adapter.service.DefaultArticleService;
 import io.memoria.magazine.domain.model.article.Article;
-import io.memoria.magazine.domain.services.ArticleService;
 import io.memoria.magazine.domain.model.article.ArticleEvent;
+import io.memoria.magazine.domain.model.article.ArticleEventHandler;
+import io.memoria.magazine.domain.services.ArticleService;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

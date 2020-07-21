@@ -1,14 +1,14 @@
 package io.memoria.magazine.adapter;
 
-import io.memoria.magazine.domain.model.review.ReviewEventHandler;
 import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.adapter.repo.memory.InMemoryEventRepo;
 import io.memoria.magazine.adapter.service.DefaultReviewService;
 import io.memoria.magazine.domain.model.review.Review;
+import io.memoria.magazine.domain.model.review.ReviewEvent;
+import io.memoria.magazine.domain.model.review.ReviewEventHandler;
 import io.memoria.magazine.domain.model.review.ReviewStatus;
 import io.memoria.magazine.domain.model.review.ReviewType;
 import io.memoria.magazine.domain.services.ReviewService;
-import io.memoria.magazine.domain.model.review.ReviewEvent;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +40,7 @@ public class ReviewServiceTest {
   @DisplayName("ReviewService commands should produce same review data eventually")
   public void commandsTest() {
     var create = service.create(REVIEW_ID, ReviewTestData.CREATE_CONTENT_REVIEW)
-                                      .flatMap(event -> repo.add(event.reviewId(), event));
+                        .flatMap(event -> repo.add(event.reviewId(), event));
     var fulfill = service.fulfill(REVIEW_ID).flatMap(event -> repo.add(event.reviewId(), event));
     var resolve = service.resolve(REVIEW_ID).flatMap(event -> repo.add(event.reviewId(), event));
     var events = repo.stream(REVIEW_ID).reduce(Review.empty(), new ReviewEventHandler());
