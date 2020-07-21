@@ -5,7 +5,7 @@ import io.memoria.magazine.adapter.repo.EventRepo;
 import io.memoria.magazine.domain.model.review.Review;
 import io.memoria.magazine.domain.model.review.ReviewCmd.CreateContentReview;
 import io.memoria.magazine.domain.model.review.ReviewEvent;
-import io.memoria.magazine.domain.model.review.ReviewEvent.ContentReviewCreated;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewCreated;
 import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewFulfilled;
 import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewResolved;
 import io.memoria.magazine.domain.services.ReviewService;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public record DefaultReviewService(EventRepo<ReviewEvent>repo, EventHandler<Review, ReviewEvent>eventHandler)
         implements ReviewService {
   @Override
-  public Mono<ContentReviewCreated> create(String id, CreateContentReview s) {
+  public Mono<ReviewCreated> create(String id, CreateContentReview s) {
     return repo.exists(id)
                .flatMap(exists -> (exists) ? Mono.error(new AlreadyExists()) : Mono.just(createReview(id, s)));
   }
@@ -29,7 +29,7 @@ public record DefaultReviewService(EventRepo<ReviewEvent>repo, EventHandler<Revi
     return repo.stream(reviewId).reduce(Review.empty(), eventHandler).map(review -> new ReviewResolved(reviewId));
   }
 
-  private ContentReviewCreated createReview(String id, CreateContentReview s) {
-    return new ContentReviewCreated(id, s.articleId(), s.newContent());
+  private ReviewCreated createReview(String id, CreateContentReview s) {
+    return new ReviewCreated(id, s.articleId(), s.newContent());
   }
 }

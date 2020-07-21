@@ -1,7 +1,7 @@
 package io.memoria.magazine.domain.model.review;
 
 import io.memoria.jutils.core.eventsourcing.event.EventHandler;
-import io.memoria.magazine.domain.model.review.ReviewEvent.ContentReviewCreated;
+import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewCreated;
 import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewFulfilled;
 import io.memoria.magazine.domain.model.review.ReviewEvent.ReviewResolved;
 
@@ -11,7 +11,7 @@ import static io.memoria.magazine.domain.model.review.ReviewType.CONTENT_CHANGE;
 public record ReviewEventHandler() implements EventHandler<Review, ReviewEvent> {
   @Override
   public Review apply(Review review, ReviewEvent reviewEvent) {
-    if (reviewEvent instanceof ContentReviewCreated e) {
+    if (reviewEvent instanceof ReviewCreated e) {
       return new Review(e.articleId(), e.newContent(), CONTENT_CHANGE, CREATED);
     } else if (review.isEmpty()) {
       throw new IllegalStateException("Previous state is empty");
