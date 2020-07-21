@@ -40,9 +40,10 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
                               .flatMap(tr -> mustBe(JOURNALIST, cmd))
                               .flatMap(tr -> mustBeOwner(article, cmd))
                               .flatMap(tr -> publish(cmd, article));
-    } else {
-      return unknownCommand(articleCommand);
     }
+    // TODO test case of unknown commands
+    log.error("Unsupported command" + articleCommand.getClass());
+    return Try.failure(UNSUPPORTED_COMMAND);
   }
 
   private Try<List<ArticleEvent>> createArticle(SubmitDraft cmd) {
@@ -61,12 +62,6 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
 
   private Try<List<ArticleEvent>> publish(PublishArticle cmd, Article article) {
     return Try.success(List.of(new ArticlePublished(cmd.id(), LocalDateTime.now())));
-  }
-
-  // TODO test case of unknown commands
-  private Try<List<ArticleEvent>> unknownCommand(ArticleCmd articleCommand) {
-    log.error("Unsupported command" + articleCommand.getClass());
-    return Try.failure(UNSUPPORTED_COMMAND);
   }
 
   private static Try<Void> mustBe(Role role, ArticleCmd cmd) {
