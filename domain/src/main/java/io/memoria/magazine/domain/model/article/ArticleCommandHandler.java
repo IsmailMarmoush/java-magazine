@@ -18,7 +18,7 @@ import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState
 import static io.memoria.magazine.domain.model.MagazineError.UnauthorizedError.UNAUTHORIZED;
 import static io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand.UNSUPPORTED_COMMAND;
 import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
-import static io.memoria.magazine.domain.services.auth.Role.isAbleTo;
+import static io.memoria.magazine.domain.model.auth.Role.isAbleTo;
 
 public record ArticleCommandHandler() implements CommandHandler<Article, ArticleCmd, ArticleEvent> {
   private static final Logger log = LoggerFactory.getLogger(ArticleCommandHandler.class.getName());

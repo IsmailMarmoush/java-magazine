@@ -2,14 +2,14 @@ package io.memoria.magazine.domain.model.article;
 
 import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
 import io.memoria.magazine.domain.model.Topic;
-import io.memoria.magazine.domain.services.auth.Principal;
-import io.memoria.magazine.domain.services.auth.Role;
+import io.memoria.magazine.domain.model.auth.Principal;
+import io.memoria.magazine.domain.model.auth.Role;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 
 import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
-import static io.memoria.magazine.domain.services.auth.Role.EDITOR_IN_CHIEF;
-import static io.memoria.magazine.domain.services.auth.Role.JOURNALIST;
+import static io.memoria.magazine.domain.model.auth.Role.EDITOR_IN_CHIEF;
+import static io.memoria.magazine.domain.model.auth.Role.JOURNALIST;
 
 public final class Tests {
   public static record Person(String id, Set<Role>roles) implements Principal {}

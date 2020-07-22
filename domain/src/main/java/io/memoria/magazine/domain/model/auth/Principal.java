@@ -1,4 +1,4 @@
-package io.memoria.magazine.domain.services.auth;
+package io.memoria.magazine.domain.model.auth;
 
 import io.vavr.collection.Set;
 

@@ -1,4 +1,4 @@
-package io.memoria.magazine.domain.services.auth;
+package io.memoria.magazine.domain.model.auth;
 
 import io.memoria.jutils.core.eventsourcing.cmd.Command;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
