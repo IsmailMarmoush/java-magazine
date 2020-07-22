@@ -22,4 +22,4 @@
 
 
 ## Notes:
-TBA
+* Review and suggestion are synonyms
