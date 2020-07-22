@@ -16,7 +16,7 @@ public class ArticleEventHandlerTest {
   private static EventHandler<Article, ArticleEvent> handler = new ArticleEventHandler();
 
   @Test
-  @DisplayName("DraftArticleSubmitted should create draft article with valid data")
+  @DisplayName("DraftArticleSubmitted event should produce a draft article with same data")
   public void draftArticleSubmittedEvent() {
     // When
     var article = handler.apply(Article.empty(), ARTICLE_SUBMITTED);
@@ -31,7 +31,7 @@ public class ArticleEventHandlerTest {
   }
 
   @Test
-  @DisplayName("Article status should be published")
+  @DisplayName("ArticlePublished event should produce a published article")
   public void publishedEvent() {
     // When
     var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, ARTICLE_PUBLISHED));
@@ -40,7 +40,7 @@ public class ArticleEventHandlerTest {
   }
 
   @Test
-  @DisplayName("Title should be changed to the new title")
+  @DisplayName("ArticleTitleEdited should produce an article with the new title")
   public void titleEditedEvent() {
     // When
     var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, TITLE_EDITED));
