@@ -31,7 +31,7 @@ public class ArticleEventHandlerTest {
   }
 
   @Test
-  @DisplayName("ArticlePublished event should produce a published article")
+  @DisplayName("ArticlePublished event should produce an article with published status")
   public void publishedEvent() {
     // When
     var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, ARTICLE_PUBLISHED));
@@ -40,7 +40,7 @@ public class ArticleEventHandlerTest {
   }
 
   @Test
-  @DisplayName("ArticleTitleEdited should produce an article with the new title")
+  @DisplayName("ArticleTitleEdited event should produce an article with the new title")
   public void titleEditedEvent() {
     // When
     var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, TITLE_EDITED));
