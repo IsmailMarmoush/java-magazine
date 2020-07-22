@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_TOPICS;
 import static io.memoria.magazine.domain.model.MagazineError.UnauthorizedError.UNAUTHORIZED;
 import static io.memoria.magazine.domain.model.Tests.BOB_JOURNALIST;
-import static io.memoria.magazine.domain.model.Tests.SUSAN_EDITOR;
+import static io.memoria.magazine.domain.model.Tests.RAY_CHIEF_EDITOR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubmitDraftTest {
@@ -26,7 +26,7 @@ public class SubmitDraftTest {
   @Test
   @DisplayName("Non journalists shouldn't be able to submit drafts")
   public void isJournalist() {
-    var submitDraft = new SubmitDraft(SUSAN_EDITOR, articleId, title, content, HashSet.empty());
+    var submitDraft = new SubmitDraft(RAY_CHIEF_EDITOR, articleId, title, content, HashSet.empty());
     var tryingToSubmitDraft = handler.apply(Article.empty(), submitDraft);
     assertThat(tryingToSubmitDraft.isFailure()).isTrue();
     assertThat(tryingToSubmitDraft.getCause()).isEqualTo(UNAUTHORIZED);

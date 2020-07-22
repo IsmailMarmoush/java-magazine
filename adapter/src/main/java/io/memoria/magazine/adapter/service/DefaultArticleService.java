@@ -9,7 +9,7 @@
 //import io.memoria.magazine.domain.model.article.ArticleEvent.DraftArticleSubmitted;
 //import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
 //import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
-//import io.memoria.magazine.domain.services.ArticleService;
+//import io.memoria.magazine.adapter.service.ArticleService;
 //import reactor.core.publisher.Mono;
 //
 //import java.time.LocalDateTime;

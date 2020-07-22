@@ -6,7 +6,7 @@
 //import io.memoria.magazine.domain.model.article.Article;
 //import io.memoria.magazine.domain.model.article.ArticleEvent;
 //import io.memoria.magazine.domain.model.article.ArticleEventHandler;
-//import io.memoria.magazine.domain.services.ArticleService;
+//import io.memoria.magazine.adapter.service.ArticleService;
 //import io.vavr.collection.List;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;

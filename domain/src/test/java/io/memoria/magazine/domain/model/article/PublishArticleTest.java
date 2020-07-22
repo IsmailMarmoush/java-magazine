@@ -2,7 +2,6 @@ package io.memoria.magazine.domain.model.article;
 
 import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
 import io.memoria.magazine.domain.model.MagazineError.InvalidArticleState;
-import io.memoria.magazine.domain.model.MagazineError.InvalidSuggestionStatus;
 import io.memoria.magazine.domain.model.MagazineError.UnauthorizedError;
 import io.memoria.magazine.domain.model.article.ArticleCmd.PublishArticle;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
@@ -15,11 +14,9 @@ import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState
 import static io.memoria.magazine.domain.model.Tests.ALEX_JOURNALIST;
 import static io.memoria.magazine.domain.model.Tests.BOB_JOURNALIST;
 import static io.memoria.magazine.domain.model.Tests.BOB_OOP_ARTICLE;
+import static io.memoria.magazine.domain.model.Tests.RAY_CHIEF_EDITOR;
 import static io.memoria.magazine.domain.model.Tests.SAM_COPYWRITER;
-import static io.memoria.magazine.domain.model.Tests.SUSAN_EDITOR;
-import static io.memoria.magazine.domain.model.suggestion.SuggestionStatus.CREATED;
 import static io.memoria.magazine.domain.model.suggestion.SuggestionStatus.FULFILLED;
-import static io.memoria.magazine.domain.model.suggestion.SuggestionStatus.RESOLVED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PublishArticleTest {
@@ -44,7 +41,7 @@ public class PublishArticleTest {
   @Test
   @DisplayName("Publisher should be a journalist")
   public void journalist() {
-    var publishArticle = new PublishArticle(SUSAN_EDITOR, BOB_OOP_ARTICLE.id());
+    var publishArticle = new PublishArticle(RAY_CHIEF_EDITOR, BOB_OOP_ARTICLE.id());
     var events = handler.apply(BOB_OOP_ARTICLE, publishArticle);
     assertThat(events.isFailure()).isTrue();
     assertThat(events.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
@@ -80,17 +77,17 @@ public class PublishArticleTest {
   @Test
   @DisplayName("Journalist, can only publish his article after all suggestions are resolved")
   public void publishArticleWithUn() {
-    // Given a non resolved suggestion from susan
+    // Given a non resolved suggestion from sam
     var publishArticle = new PublishArticle(BOB_JOURNALIST, BOB_OOP_ARTICLE.id());
-    var susanSuggestion = new Suggestion("1", "some comment", SAM_COPYWRITER.id(), BOB_OOP_ARTICLE.id(), FULFILLED);
+    var samSuggestion = new Suggestion("1", "some comment", SAM_COPYWRITER.id(), BOB_OOP_ARTICLE.id(), FULFILLED);
     // when trying to publish
-    var tryingToPublishEvents = handler.apply(BOB_OOP_ARTICLE.withSuggestion(susanSuggestion), publishArticle);
+    var tryingToPublishEvents = handler.apply(BOB_OOP_ARTICLE.withSuggestion(samSuggestion), publishArticle);
     // then it fails with invalid article state
     assertThat(tryingToPublishEvents.isFailure()).isTrue();
     assertThat(tryingToPublishEvents.getCause()).isExactlyInstanceOf(InvalidArticleState.class);
 
     // but when suggestion is resolved
-    tryingToPublishEvents = handler.apply(BOB_OOP_ARTICLE.withSuggestion(susanSuggestion.toResolved()), publishArticle);
+    tryingToPublishEvents = handler.apply(BOB_OOP_ARTICLE.withSuggestion(samSuggestion.toResolved()), publishArticle);
     // then it passes
     assertThat(tryingToPublishEvents.isSuccess()).isTrue();
     assertThat(tryingToPublishEvents.get()).contains(new ArticlePublished(BOB_OOP_ARTICLE.id()));

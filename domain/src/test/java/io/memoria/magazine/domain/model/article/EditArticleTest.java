@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static io.memoria.magazine.domain.model.Tests.ALEX_JOURNALIST;
 import static io.memoria.magazine.domain.model.Tests.BOB_JOURNALIST;
 import static io.memoria.magazine.domain.model.Tests.BOB_OOP_ARTICLE;
-import static io.memoria.magazine.domain.model.Tests.SUSAN_EDITOR;
+import static io.memoria.magazine.domain.model.Tests.RAY_CHIEF_EDITOR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EditArticleTest {
@@ -30,7 +30,7 @@ public class EditArticleTest {
   @Test
   @DisplayName("Non journalist editing article should throw unauthorized exception")
   public void journalist() {
-    var editArticleCmd = new EditArticleTitle(SUSAN_EDITOR, BOB_OOP_ARTICLE.id(), NEW_TITLE);
+    var editArticleCmd = new EditArticleTitle(RAY_CHIEF_EDITOR, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var tryingToEditArticle = handler.apply(BOB_OOP_ARTICLE, editArticleCmd);
     assertThat(tryingToEditArticle.isFailure()).isTrue();
     assertThat(tryingToEditArticle.getCause()).isExactlyInstanceOf(UnauthorizedError.class);

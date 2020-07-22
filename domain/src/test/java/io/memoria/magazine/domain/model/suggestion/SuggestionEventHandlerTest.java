@@ -19,7 +19,9 @@ public class SuggestionEventHandlerTest {
                                                                                    SAM_COPYWRITER.id(),
                                                                                    "1000",
                                                                                    "Fix grammar error");
-  private static final SuggestionFulfilled suggestionFulfilled = new SuggestionFulfilled("2", SAM_COPYWRITER.id(), "1000");
+  private static final SuggestionFulfilled suggestionFulfilled = new SuggestionFulfilled("2",
+                                                                                         SAM_COPYWRITER.id(),
+                                                                                         "1000");
   private static final SuggestionResolved suggestionResolved = new SuggestionResolved("3", SAM_COPYWRITER.id(), "1000");
 
   @Test

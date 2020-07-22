@@ -8,7 +8,7 @@
 //import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionCreated;
 //import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionFulfilled;
 //import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionResolved;
-//import io.memoria.magazine.domain.services.SuggestionService;
+//import io.memoria.magazine.adapter.service.SuggestionService;
 //import reactor.core.publisher.Mono;
 //
 //public record DefaultSuggestionService(EventRepo<SuggestionEvent>repo, EventHandler<Suggestion, SuggestionEvent>eventHandler)

@@ -18,8 +18,8 @@ public final class Tests {
   public static final Topic REACTIVE_TOPIC = new Topic("reactive programming");
 
   // Susan the chief Editor
-  private static final String SUSAN_ID = "Susan";
-  public static final Person SUSAN_EDITOR = new Person(SUSAN_ID, HashSet.of(EDITOR_IN_CHIEF));
+  private static final String RAY_ID = "Ray";
+  public static final Person RAY_CHIEF_EDITOR = new Person(RAY_ID, HashSet.of(EDITOR_IN_CHIEF));
 
   // Bob the journalist
   private static final String BOB_ID = "Bob";

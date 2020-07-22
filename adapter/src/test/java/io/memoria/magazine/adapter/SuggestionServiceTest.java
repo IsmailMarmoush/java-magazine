@@ -8,7 +8,7 @@
 //import io.memoria.magazine.domain.model.suggestion.SuggestionEventHandler;
 //import io.memoria.magazine.domain.model.suggestion.SuggestionStatus;
 //import io.memoria.magazine.domain.model.suggestion.SuggestionType;
-//import io.memoria.magazine.domain.services.SuggestionService;
+//import io.memoria.magazine.adapter.service.SuggestionService;
 //import io.vavr.collection.List;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;

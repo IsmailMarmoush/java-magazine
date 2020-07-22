@@ -72,7 +72,7 @@ public class FulfillSuggestionTest {
     // Given
     var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(samSuggestion);
     // When respond command is applied
-    var respond = new RespondToSuggestion(Tests.SUSAN_EDITOR, suggestionId, BOB_OOP_ARTICLE.id());
+    var respond = new RespondToSuggestion(Tests.RAY_CHIEF_EDITOR, suggestionId, BOB_OOP_ARTICLE.id());
     var tryingToRespond = handler.apply(articleWithSuggestion, respond);
     // Then suggestion should be fulfilled successfully
     assertThat(tryingToRespond.isFailure()).isTrue();

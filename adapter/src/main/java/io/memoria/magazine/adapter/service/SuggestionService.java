@@ -1,4 +1,4 @@
-package io.memoria.magazine.domain.services;
+package io.memoria.magazine.adapter.service;
 
 import io.memoria.magazine.domain.model.suggestion.SuggestionCmd.CreateSuggestion;
 import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionCreated;
