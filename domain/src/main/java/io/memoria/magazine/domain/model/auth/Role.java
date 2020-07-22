@@ -7,12 +7,13 @@ import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
 import io.memoria.magazine.domain.model.edition.EditionCmd.CreateEdition;
 import io.memoria.magazine.domain.model.suggestion.SuggestionCmd.CreateSuggestion;
 import io.memoria.magazine.domain.model.suggestion.SuggestionCmd.ResolveSuggestion;
+import io.memoria.magazine.domain.model.suggestion.SuggestionCmd.RespondToSuggestion;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 
 public enum Role {
   EDITOR_IN_CHIEF(HashSet.of(CreateEdition.class)),
-  JOURNALIST(HashSet.of(SubmitDraft.class, EditArticleTitle.class, PublishArticle.class)),
+  JOURNALIST(HashSet.of(SubmitDraft.class, EditArticleTitle.class, PublishArticle.class, RespondToSuggestion.class)),
   COPYWRITER(HashSet.of(CreateSuggestion.class, ResolveSuggestion.class));
 
   public final Set<Class<? extends Command>> operations;

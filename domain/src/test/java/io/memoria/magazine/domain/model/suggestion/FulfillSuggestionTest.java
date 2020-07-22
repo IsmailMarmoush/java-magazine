@@ -19,17 +19,17 @@ public class FulfillSuggestionTest {
   private static final SuggestionCommandHandler handler = new SuggestionCommandHandler();
   private static final String suggestionId = "1";
   private static final String comment = "Fix grammar, please";
-  private static final Suggestion susanSuggestion = new Suggestion(suggestionId,
-                                                                   comment,
-                                                                   SAM_COPYWRITER.id(),
-                                                                   BOB_OOP_ARTICLE.id(),
-                                                                   CREATED);
+  private static final Suggestion samSuggestion = new Suggestion(suggestionId,
+                                                                 comment,
+                                                                 SAM_COPYWRITER.id(),
+                                                                 BOB_OOP_ARTICLE.id(),
+                                                                 CREATED);
 
   @Test
   @DisplayName("Suggestion responder should be the article owner")
   public void articleOwner() {
-    // Given an article created by Alex with suggestion from Susan
-    var articleWithSuggestion = Tests.ALEX_REACTIVE_ARTICLE.withSuggestion(susanSuggestion);
+    // Given an article created by Alex with suggestion from sam
+    var articleWithSuggestion = Tests.ALEX_REACTIVE_ARTICLE.withSuggestion(samSuggestion);
     // When respond command is applied by Bob
     var respond = new RespondToSuggestion(Tests.BOB_JOURNALIST, suggestionId, BOB_OOP_ARTICLE.id());
     var tryingToRespond = handler.apply(articleWithSuggestion, respond);
@@ -42,7 +42,7 @@ public class FulfillSuggestionTest {
   @DisplayName("Journalist should respond to suggestions by making the suggested changes")
   public void respond() {
     // Given
-    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(susanSuggestion);
+    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(samSuggestion);
     // When respond command is applied
     var respond = new RespondToSuggestion(Tests.BOB_JOURNALIST, suggestionId, BOB_OOP_ARTICLE.id());
     var tryingToRespond = handler.apply(articleWithSuggestion, respond);
@@ -57,7 +57,7 @@ public class FulfillSuggestionTest {
   @DisplayName("Suggestion should be in creation mode")
   public void shouldBeInCreationMode() {
     // Given
-    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(susanSuggestion.toFulfilled());
+    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(samSuggestion.toFulfilled());
     // When respond command is applied
     var respond = new RespondToSuggestion(Tests.BOB_JOURNALIST, suggestionId, BOB_OOP_ARTICLE.id());
     var tryingToRespond = handler.apply(articleWithSuggestion, respond);
@@ -70,7 +70,7 @@ public class FulfillSuggestionTest {
   @DisplayName("Suggestion responder should be a journalist")
   public void shouldBeJournalist() {
     // Given
-    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(susanSuggestion);
+    var articleWithSuggestion = BOB_OOP_ARTICLE.withSuggestion(samSuggestion);
     // When respond command is applied
     var respond = new RespondToSuggestion(Tests.SUSAN_EDITOR, suggestionId, BOB_OOP_ARTICLE.id());
     var tryingToRespond = handler.apply(articleWithSuggestion, respond);

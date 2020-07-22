@@ -37,13 +37,15 @@ public record SuggestionCommandHandler() implements CommandHandler<Article, Sugg
                         .flatMap(tr -> notEmptyComment(cmd))
                         .flatMap(tr -> createSuggestion(cmd));
     } else if (suggestionCmd instanceof RespondToSuggestion cmd) {
-      return mustBeArticleOwner(article, cmd).flatMap(tr -> suggestionMustExist(article, cmd))
-                                             .flatMap(mustBeInStatus(CREATED))
-                                             .flatMap(v -> fulfillSuggestion(cmd));
+      return ableTo(cmd).flatMap(tr -> mustBeArticleOwner(article, cmd))
+                        .flatMap(tr -> suggestionMustExist(article, cmd))
+                        .flatMap(mustBeInStatus(CREATED))
+                        .flatMap(v -> fulfillSuggestion(cmd));
     } else if (suggestionCmd instanceof ResolveSuggestion cmd) {
-      return suggestionMustExist(article, cmd).flatMap(mustBeSuggestionOwner(cmd))
-                                              .flatMap(mustBeInStatus(FULFILLED))
-                                              .flatMap(v -> resolveSuggestion(cmd));
+      return ableTo(cmd).flatMap(tr -> suggestionMustExist(article, cmd))
+                        .flatMap(mustBeSuggestionOwner(cmd))
+                        .flatMap(mustBeInStatus(FULFILLED))
+                        .flatMap(v -> resolveSuggestion(cmd));
     }
     // TODO test case of unknown commands
     log.error("Unsupported command" + suggestionCmd.getClass());
