@@ -2,9 +2,9 @@ package io.memoria.magazine.domain.model.suggestion;
 
 import static io.memoria.magazine.domain.model.suggestion.SuggestionStatus.CREATED;
 
-public record Suggestion(String articleId, String newContent, SuggestionType suggestionType, SuggestionStatus suggestionStatus) {
+public record Suggestion(String id, String comment, String creatorId, String articleId, SuggestionStatus status) {
   public static Suggestion empty() {
-    return new Suggestion("", "", SuggestionType.CONTENT_CHANGE, CREATED);
+    return new Suggestion("", "", "", "", CREATED);
   }
 
   public boolean isEmpty() {
@@ -12,10 +12,10 @@ public record Suggestion(String articleId, String newContent, SuggestionType sug
   }
 
   public Suggestion toFulfilled() {
-    return new Suggestion(this.articleId, this.newContent, this.suggestionType, SuggestionStatus.FULFILLED);
+    return new Suggestion(this.id, this.comment, this.creatorId, this.articleId, SuggestionStatus.FULFILLED);
   }
 
   public Suggestion toResolved() {
-    return new Suggestion(this.articleId, this.newContent, this.suggestionType, SuggestionStatus.RESOLVED);
+    return new Suggestion(this.id, this.comment, this.creatorId, this.articleId, SuggestionStatus.RESOLVED);
   }
 }

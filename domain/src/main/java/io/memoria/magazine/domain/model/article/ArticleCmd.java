@@ -13,5 +13,7 @@ public interface ArticleCmd extends Command {
   record SubmitDraft(Principal principal, String articleId, String title, String content, Set<Topic>topics)
           implements ArticleCmd {}
 
+  String articleId();
+
   Principal principal();
 }

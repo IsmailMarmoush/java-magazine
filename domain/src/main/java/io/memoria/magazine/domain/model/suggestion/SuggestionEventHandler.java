@@ -1,41 +1,29 @@
 package io.memoria.magazine.domain.model.suggestion;
 
 import io.memoria.jutils.core.eventsourcing.event.EventHandler;
+import io.memoria.magazine.domain.model.article.ArticleEventHandler;
 import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionCreated;
 import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionFulfilled;
 import io.memoria.magazine.domain.model.suggestion.SuggestionEvent.SuggestionResolved;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.memoria.magazine.domain.model.suggestion.SuggestionStatus.CREATED;
-import static io.memoria.magazine.domain.model.suggestion.SuggestionType.CONTENT_CHANGE;
 
 public record SuggestionEventHandler() implements EventHandler<Suggestion, SuggestionEvent> {
+  private static final Logger log = LoggerFactory.getLogger(ArticleEventHandler.class.getName());
+
   @Override
   public Suggestion apply(Suggestion suggestion, SuggestionEvent suggestionEvent) {
     if (suggestionEvent instanceof SuggestionCreated e) {
-      return new Suggestion(e.articleId(), e.newContent(), CONTENT_CHANGE, CREATED);
-    } else if (suggestion.isEmpty()) {
-      throw new IllegalStateException("Previous state is empty");
+      return new Suggestion(e.suggestionId(), e.comment(), e.creatorId(), e.articleId(), CREATED);
     } else if (suggestionEvent instanceof SuggestionFulfilled) {
-      return fulfill(suggestion);
+      return suggestion.toFulfilled();
     } else if (suggestionEvent instanceof SuggestionResolved) {
-      return resolve(suggestion);
+      return suggestion.toResolved();
+    } else {
+      log.error("Unknown even type: " + suggestionEvent.getClass());
+      return suggestion;
     }
-    throw new UnsupportedOperationException();
-  }
-
-  private Suggestion fulfill(Suggestion suggestion) {
-    return switch (suggestion.suggestionStatus()) {
-      case CREATED -> suggestion.toFulfilled();
-      case FULFILLED -> throw new IllegalStateException("Previous is already Fulfilled");
-      case RESOLVED -> throw new IllegalStateException("Can't fulfill suggestion that is already resolved");
-    };
-  }
-
-  private Suggestion resolve(Suggestion suggestion) {
-    return switch (suggestion.suggestionStatus()) {
-      case CREATED -> throw new IllegalStateException("Can't resolve suggestion that is not fulfilled");
-      case FULFILLED -> suggestion.toResolved();
-      case RESOLVED -> throw new IllegalStateException("Review is already Resolved");
-    };
   }
 }
