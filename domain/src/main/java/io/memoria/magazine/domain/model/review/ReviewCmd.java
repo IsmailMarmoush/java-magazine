@@ -4,5 +4,7 @@ import io.memoria.jutils.core.eventsourcing.cmd.Command;
 
 public interface ReviewCmd extends Command {
 
-  record CreateContentReview(String articleId, String newContent) implements ReviewCmd {}
+  record CreateReview(String articleId, String newContent) implements ReviewCmd {}
+
+  record ResolveReview(String reviewId, String articleId, String newContent) implements ReviewCmd {}
 }
