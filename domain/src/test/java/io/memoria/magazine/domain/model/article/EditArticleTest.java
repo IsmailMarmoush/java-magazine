@@ -16,6 +16,7 @@ import static io.memoria.magazine.domain.model.article.Tests.ALEX_JOURNALIST;
 import static io.memoria.magazine.domain.model.article.Tests.BOB_JOURNALIST;
 import static io.memoria.magazine.domain.model.article.Tests.BOB_OOP_ARTICLE;
 import static io.memoria.magazine.domain.model.article.Tests.SUSAN_EDITOR;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EditArticleTest {
   private static final CommandHandler<Article, ArticleCmd, ArticleEvent> handler;
@@ -31,8 +32,8 @@ public class EditArticleTest {
   public void editArticleTitle() {
     var editArticleCmd = new EditArticleTitle(BOB_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var events = handler.apply(BOB_OOP_ARTICLE, editArticleCmd);
-    Assertions.assertThat(events.isSuccess()).isTrue();
-    Assertions.assertThat(events.get().contains(new ArticleTitleEdited(BOB_OOP_ARTICLE.id(), NEW_TITLE)));
+    assertThat(events.isSuccess()).isTrue();
+    assertThat(events.get().contains(new ArticleTitleEdited(BOB_OOP_ARTICLE.id(), NEW_TITLE)));
   }
 
   @Test
@@ -40,8 +41,8 @@ public class EditArticleTest {
   public void journalist() {
     var editArticleCmd = new EditArticleTitle(SUSAN_EDITOR, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var events = handler.apply(BOB_OOP_ARTICLE, editArticleCmd);
-    Assertions.assertThat(events.isFailure()).isTrue();
-    Assertions.assertThat(events.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
+    assertThat(events.isFailure()).isTrue();
+    assertThat(events.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
   }
 
   @Test
@@ -49,8 +50,8 @@ public class EditArticleTest {
   public void ownersOnly() {
     var editArticleCmd = new EditArticleTitle(ALEX_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var events = handler.apply(BOB_OOP_ARTICLE, editArticleCmd);
-    Assertions.assertThat(events.isFailure()).isTrue();
-    Assertions.assertThat(events.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
+    assertThat(events.isFailure()).isTrue();
+    assertThat(events.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
   }
 
   @Test
@@ -58,7 +59,7 @@ public class EditArticleTest {
   public void notEmpty() {
     var editArticleCmd = new EditArticleTitle(BOB_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var events = handler.apply(Article.empty(), editArticleCmd);
-    Assertions.assertThat(events.isFailure()).isTrue();
-    Assertions.assertThat(events.getCause()).isEqualTo(InvalidArticleState.EMPTY_ARTICLE);
+    assertThat(events.isFailure()).isTrue();
+    assertThat(events.getCause()).isEqualTo(InvalidArticleState.EMPTY_ARTICLE);
   }
 }
