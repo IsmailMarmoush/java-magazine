@@ -22,15 +22,4 @@
 
 
 ## Notes:
-* Assumptions:
-    * 
-* Many crud operations that are "good to have" are not implemented for the following reasons:
-    * They aren't specifically mentioned in the requirements (e.g deletion of edition draft)
-    * The logic doesn't fail without them, and they might not be ever needed (YAGNI)
-    * Decreasing refactoring domain after initial review iterations
-* Application (Api server) module isn't included as it wasn't required yet.
-* Assuming there would be a diff engine which would compare contents and display them in a (github way) and its implementation is not in scope of yet 
-* Assuming the following business rules:
-    * A review can't be resolved till it's fulfilled first
-    * An article title can't be changed if it was published
-* Initial implementation of authorization is written, since API isn't required yet, it's not used.
+TBA
