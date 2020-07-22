@@ -17,11 +17,11 @@ public enum Role {
 
   public final Set<Class<? extends Command>> operations;
 
-  Role(Set<Class<? extends Command>> operations) {
-    this.operations = operations;
-  }
-
   public static <T extends Command> boolean isAbleTo(Set<Role> roles, Class<T> t) {
     return roles.filter(role -> role.operations.contains(t)).size() > 0;
+  }
+
+  Role(Set<Class<? extends Command>> operations) {
+    this.operations = operations;
   }
 }

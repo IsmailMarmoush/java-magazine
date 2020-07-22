@@ -23,16 +23,12 @@ public class SubmitDraftTest {
   private static final Set<Topic> topics = HashSet.of(new Topic("LP"));
 
   @Test
-  @DisplayName("A journalist should be able to submit article draft successfully")
-  public void submitDraft() {
-    var submitDraft = new SubmitDraft(BOB_JOURNALIST, articleId, title, content, topics);
+  @DisplayName("Non journalists shouldn't be able to submit drafts")
+  public void isJournalist() {
+    var submitDraft = new SubmitDraft(SUSAN_EDITOR, articleId, title, content, HashSet.empty());
     var tryingToSubmitDraft = COMMAND_HANDLER.apply(Article.empty(), submitDraft);
-    assertThat(tryingToSubmitDraft.isSuccess()).isTrue();
-    assertThat(tryingToSubmitDraft.get()).contains(new DraftArticleSubmitted(articleId,
-                                                                             BOB_ID,
-                                                                             title,
-                                                                             content,
-                                                                             topics));
+    assertThat(tryingToSubmitDraft.isFailure()).isTrue();
+    assertThat(tryingToSubmitDraft.getCause()).isEqualTo(UNAUTHORIZED);
   }
 
   @Test
@@ -45,11 +41,15 @@ public class SubmitDraftTest {
   }
 
   @Test
-  @DisplayName("Non journalists shouldn't be able to submit drafts")
-  public void isJournalist() {
-    var submitDraft = new SubmitDraft(SUSAN_EDITOR, articleId, title, content, HashSet.empty());
+  @DisplayName("A journalist should be able to submit article draft successfully")
+  public void submitDraft() {
+    var submitDraft = new SubmitDraft(BOB_JOURNALIST, articleId, title, content, topics);
     var tryingToSubmitDraft = COMMAND_HANDLER.apply(Article.empty(), submitDraft);
-    assertThat(tryingToSubmitDraft.isFailure()).isTrue();
-    assertThat(tryingToSubmitDraft.getCause()).isEqualTo(UNAUTHORIZED);
+    assertThat(tryingToSubmitDraft.isSuccess()).isTrue();
+    assertThat(tryingToSubmitDraft.get()).contains(new DraftArticleSubmitted(articleId,
+                                                                             BOB_ID,
+                                                                             title,
+                                                                             content,
+                                                                             topics));
   }
 }

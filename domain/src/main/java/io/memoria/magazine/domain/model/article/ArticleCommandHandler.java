@@ -1,7 +1,6 @@
 package io.memoria.magazine.domain.model.article;
 
 import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
-import io.memoria.jutils.core.generator.IdGenerator;
 import io.memoria.magazine.domain.model.article.ArticleCmd.EditArticleTitle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.PublishArticle;
 import io.memoria.magazine.domain.model.article.ArticleCmd.SubmitDraft;
@@ -12,8 +11,6 @@ import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
 
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.ARTICLE_ALREADY_PUBLISHED;
 import static io.memoria.magazine.domain.model.MagazineError.InvalidArticleState.EMPTY_ARTICLE;

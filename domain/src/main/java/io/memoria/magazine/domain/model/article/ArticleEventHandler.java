@@ -1,9 +1,9 @@
 package io.memoria.magazine.domain.model.article;
 
 import io.memoria.jutils.core.eventsourcing.event.EventHandler;
-import io.memoria.magazine.domain.model.article.ArticleEvent.DraftArticleSubmitted;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticlePublished;
 import io.memoria.magazine.domain.model.article.ArticleEvent.ArticleTitleEdited;
+import io.memoria.magazine.domain.model.article.ArticleEvent.DraftArticleSubmitted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -36,20 +36,20 @@ public class EditArticleTest {
   }
 
   @Test
-  @DisplayName("Non owner editing article should throw unauthorized exception")
-  public void ownersOnly() {
-    var editArticleCmd = new EditArticleTitle(ALEX_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
-    var tryingToEditArticle = COMMAND_HANDLER.apply(BOB_OOP_ARTICLE, editArticleCmd);
-    assertThat(tryingToEditArticle.isFailure()).isTrue();
-    assertThat(tryingToEditArticle.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
-  }
-
-  @Test
   @DisplayName("Article should not be empty")
   public void notEmpty() {
     var editArticleCmd = new EditArticleTitle(BOB_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var tryingToEditArticle = COMMAND_HANDLER.apply(Article.empty(), editArticleCmd);
     assertThat(tryingToEditArticle.isFailure()).isTrue();
     assertThat(tryingToEditArticle.getCause()).isEqualTo(InvalidArticleState.EMPTY_ARTICLE);
+  }
+
+  @Test
+  @DisplayName("Non owner editing article should throw unauthorized exception")
+  public void ownersOnly() {
+    var editArticleCmd = new EditArticleTitle(ALEX_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
+    var tryingToEditArticle = COMMAND_HANDLER.apply(BOB_OOP_ARTICLE, editArticleCmd);
+    assertThat(tryingToEditArticle.isFailure()).isTrue();
+    assertThat(tryingToEditArticle.getCause()).isExactlyInstanceOf(UnauthorizedError.class);
   }
 }

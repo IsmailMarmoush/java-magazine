@@ -1,14 +1,11 @@
 package io.memoria.magazine.domain.model.article;
 
-import io.memoria.jutils.adapter.generator.SerialIdGenerator;
 import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
 import io.memoria.magazine.domain.model.Topic;
 import io.memoria.magazine.domain.services.auth.Principal;
 import io.memoria.magazine.domain.services.auth.Role;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
 import static io.memoria.magazine.domain.services.auth.Role.EDITOR_IN_CHIEF;

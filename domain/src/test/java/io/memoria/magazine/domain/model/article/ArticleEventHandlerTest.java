@@ -5,11 +5,11 @@ import io.vavr.collection.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
-import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
 import static io.memoria.magazine.domain.model.article.ArticleEventsTestData.ARTICLE_PUBLISHED;
 import static io.memoria.magazine.domain.model.article.ArticleEventsTestData.ARTICLE_SUBMITTED;
 import static io.memoria.magazine.domain.model.article.ArticleEventsTestData.TITLE_EDITED;
+import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
+import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ArticleEventHandlerTest {
@@ -31,20 +31,20 @@ public class ArticleEventHandlerTest {
   }
 
   @Test
-  @DisplayName("Title should be changed to the new title")
-  public void titleEditedEvent() {
-    // When
-    var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, TITLE_EDITED));
-    // Then
-    assertThat(article.title()).isEqualTo(TITLE_EDITED.newTitle());
-  }
-
-  @Test
   @DisplayName("Article status should be published")
   public void publishedEvent() {
     // When
     var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, ARTICLE_PUBLISHED));
     // Then
     assertThat(article.status()).isEqualTo(PUBLISHED);
+  }
+
+  @Test
+  @DisplayName("Title should be changed to the new title")
+  public void titleEditedEvent() {
+    // When
+    var article = handler.apply(Article.empty(), List.of(ARTICLE_SUBMITTED, TITLE_EDITED));
+    // Then
+    assertThat(article.title()).isEqualTo(TITLE_EDITED.newTitle());
   }
 }
