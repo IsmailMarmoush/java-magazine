@@ -10,7 +10,8 @@ public interface ArticleCmd extends Command {
 
   record PublishArticle(Principal principal, String articleId) implements ArticleCmd {}
 
-  record SubmitDraft(Principal principal, String title, String content, Set<Topic>topics) implements ArticleCmd {}
+  record SubmitDraft(Principal principal, String articleId, String title, String content, Set<Topic>topics)
+          implements ArticleCmd {}
 
   Principal principal();
 }

@@ -23,7 +23,7 @@ import static io.memoria.magazine.domain.model.MagazineError.UnsupportedCommand.
 import static io.memoria.magazine.domain.model.article.ArticleStatus.PUBLISHED;
 import static io.memoria.magazine.domain.services.auth.Role.isAbleTo;
 
-public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler<Article, ArticleCmd, ArticleEvent> {
+public record ArticleCommandHandler() implements CommandHandler<Article, ArticleCmd, ArticleEvent> {
   private static final Logger log = LoggerFactory.getLogger(ArticleCommandHandler.class.getName());
 
   @Override
@@ -45,7 +45,11 @@ public record ArticleCommandHandler(IdGenerator idGen) implements CommandHandler
   }
 
   private Try<List<ArticleEvent>> createArticle(SubmitDraft cmd) {
-    var event = new DraftArticleSubmitted(cmd.principal().id(), idGen.get(), cmd.title(), cmd.content(), cmd.topics());
+    var event = new DraftArticleSubmitted(cmd.principal().id(),
+                                          cmd.articleId(),
+                                          cmd.title(),
+                                          cmd.content(),
+                                          cmd.topics());
     return Try.success(List.of(event));
   }
 

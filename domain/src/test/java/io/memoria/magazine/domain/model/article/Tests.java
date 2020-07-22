@@ -1,10 +1,14 @@
 package io.memoria.magazine.domain.model.article;
 
+import io.memoria.jutils.adapter.generator.SerialIdGenerator;
+import io.memoria.jutils.core.eventsourcing.cmd.CommandHandler;
 import io.memoria.magazine.domain.model.Topic;
 import io.memoria.magazine.domain.services.auth.Principal;
 import io.memoria.magazine.domain.services.auth.Role;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 import static io.memoria.magazine.domain.model.article.ArticleStatus.DRAFT;
 import static io.memoria.magazine.domain.services.auth.Role.EDITOR_IN_CHIEF;
@@ -13,6 +17,7 @@ import static io.memoria.magazine.domain.services.auth.Role.JOURNALIST;
 public final class Tests {
   public static record Person(String id, Set<Role>roles) implements Principal {}
 
+  public static final CommandHandler<Article, ArticleCmd, ArticleEvent> COMMAND_HANDLER;
   public static final Topic OOP_TOPIC;
   public static final Topic REACTIVE_TOPIC;
 
@@ -28,6 +33,8 @@ public final class Tests {
   public static final Person SUSAN_EDITOR;
 
   static {
+    COMMAND_HANDLER = new ArticleCommandHandler();
+
     OOP_TOPIC = new Topic("oop");
     REACTIVE_TOPIC = new Topic("reactive programming");
 
