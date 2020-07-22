@@ -23,7 +23,7 @@ public class EditArticleTest {
     var editArticleCmd = new EditArticleTitle(BOB_JOURNALIST, BOB_OOP_ARTICLE.id(), NEW_TITLE);
     var tryingToEditArticle = COMMAND_HANDLER.apply(BOB_OOP_ARTICLE, editArticleCmd);
     assertThat(tryingToEditArticle.isSuccess()).isTrue();
-    assertThat(tryingToEditArticle.get().contains(new ArticleTitleEdited(BOB_OOP_ARTICLE.id(), NEW_TITLE)));
+    assertThat(tryingToEditArticle.get()).contains(new ArticleTitleEdited(BOB_OOP_ARTICLE.id(), NEW_TITLE));
   }
 
   @Test

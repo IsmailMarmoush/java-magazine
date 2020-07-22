@@ -45,8 +45,8 @@ public record ArticleCommandHandler() implements CommandHandler<Article, Article
   }
 
   private Try<List<ArticleEvent>> createArticle(SubmitDraft cmd) {
-    var event = new DraftArticleSubmitted(cmd.principal().id(),
-                                          cmd.articleId(),
+    var event = new DraftArticleSubmitted(cmd.articleId(),
+                                          cmd.principal().id(),
                                           cmd.title(),
                                           cmd.content(),
                                           cmd.topics());
