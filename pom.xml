@@ -23,6 +23,7 @@
     <modules>
         <module>domain</module>
         <module>adapter</module>
+        <module>app</module>
     </modules>
     <properties>
         <jutils.version>0.98.0</jutils.version>

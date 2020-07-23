@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>io.memoria.magazine</groupId>
-    <artifactId>adapter</artifactId>
+    <artifactId>app</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>io.memoria.magazine</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
