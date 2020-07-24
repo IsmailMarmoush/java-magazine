@@ -9,17 +9,11 @@
     </parent>
 
     <groupId>io.memoria.magazine</groupId>
-    <artifactId>adapter</artifactId>
+    <artifactId>domain</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>Adapter Module</description>
+    <description>Domain Module</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.memoria.magazine</groupId>
-            <artifactId>domain</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-    </dependencies>
 </project>
+

@@ -1,6 +1,6 @@
 package io.memoria.magazine.adapter.repo.memory;
 
-import io.memoria.magazine.adapter.repo.EventRepo;
+import io.memoria.magazine.domain.service.EventRepo;
 import io.vavr.collection.List;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,12 +26,23 @@ public class InMemoryEventRepo<T> implements EventRepo<T> {
   }
 
   @Override
+  public Mono<Void> add(String id, List<T> ts) {
+    return Mono.fromRunnable(() -> {
+      if (db.get(id) == null || db.get(id).isEmpty()) {
+        db.put(id, ts);
+      } else {
+        db.put(id, db.get(id).appendAll(ts));
+      }
+    });
+  }
+
+  @Override
   public Mono<Boolean> exists(String id) {
     return Mono.fromCallable(() -> db.containsKey(id));
   }
 
   @Override
   public Flux<T> stream(String id) {
-    return Mono.fromCallable(() -> db.get(id)).onErrorReturn(List.empty()).flatMapMany(Flux::fromIterable);
+    return Mono.fromCallable(()-> db.get(id)).onErrorReturn(List.empty()).flatMapMany(Flux::fromIterable);
   }
 }
