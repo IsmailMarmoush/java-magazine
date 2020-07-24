@@ -18,8 +18,13 @@
     <dependencies>
         <dependency>
             <groupId>io.memoria.magazine</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>domain</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.memoria.magazine</groupId>
+            <artifactId>adapter</artifactId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 </project>
